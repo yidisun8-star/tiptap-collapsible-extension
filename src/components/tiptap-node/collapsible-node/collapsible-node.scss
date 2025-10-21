@@ -1,0 +1,64 @@
+.tiptap-collapsible-wrapper {
+  margin: 1rem 0;
+  border: 1px solid var(--tiptap-color-border);
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.tiptap-collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: var(--tiptap-color-surface-hover);
+  cursor: pointer;
+  user-select: none;
+}
+
+.tiptap-collapsible-title {
+  font-weight: 500;
+}
+
+.tiptap-collapsible-title-input {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--tiptap-color-border);
+  border-radius: 0.25rem;
+  font-weight: 500;
+  background-color: var(--tiptap-color-background);
+}
+
+.tiptap-collapsible-header.editable {
+  cursor: default;
+}
+
+.tiptap-collapsible-icon {
+  transition: transform 0.2s ease;
+  
+  &.open {
+    transform: rotate(0deg);
+  }
+  
+  &.closed {
+    transform: rotate(-90deg);
+  }
+}
+
+.tiptap-collapsible-content {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  
+  &.open {
+    max-height: 100%;
+    opacity: 1;
+  }
+  
+  &.closed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+}
+
+.tiptap-collapsible-content-inner {
+  padding: 1rem;
+}

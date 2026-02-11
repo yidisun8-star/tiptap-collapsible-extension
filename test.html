@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手动调用 mermaid.render() 示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .chat-window { width: 90%; margin: 20px auto; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; }
+        .mermaid-container {
+            max-width: 100%; overflow-y: auto; overflow-x: hidden;
+            border-radius: 6px; padding: 10px; background: #f9fafb;
+            text-align: center; /* 居中 */
+        }
+        .mermaid-container svg { margin: 0 auto; display: block !important; }
+        @media (max-width: 768px) { .mermaid-container { max-height: 500px; } }
+        @media (min-width: 769px) { .mermaid-container { max-height: 800px; } }
+        button { margin: 10px auto; display: block; padding: 8px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <button id="renderBtn">点击手动渲染流程图</button>
+    <div class="chat-window">
+        <!-- 空容器：用于接收手动渲染的结果 -->
+        <div class="mermaid-container" id="flowContainer"></div>
+    </div>
+
+    <script>
+        // 初始化Mermaid（关闭自动渲染）
+        mermaid.initialize({
+            startOnLoad: false, // 关键：关闭自动渲染
+            theme: 'default',
+            fontSize: 14,
+            nodeSpacing: 50,
+            flowchart: { align: 'center' }
+        });
+
+        // 定义流程图文本（可动态生成/从后端获取）
+        const mermaidCode = `
+            flowchart TD
+                A["开始过年准备"] --> B["置办年货：坚果、水果、肉类"]
+                B --> C["全屋大扫除：擦窗、拖地、整理橱柜"]
+                C --> D["贴春联：大门、卧室、厨房"]
+                D --> E["贴福字：倒贴福=福到"]
+                E --> F["挂饰：灯笼、中国结、彩灯"]
+                F --> G["除夕：准备年夜饭"]
+        `;
+
+        // 点击按钮手动渲染
+        document.getElementById('renderBtn').addEventListener('click', async () => {
+            try {
+                // 手动调用render方法：参数1=唯一id，参数2=流程图文本
+                const { svg } = await mermaid.render('myFlowChart', mermaidCode);
+                // 将渲染后的SVG插入到目标容器
+                document.getElementById('flowContainer').innerHTML = svg;
+            } catch (err) {
+                console.error('渲染失败：', err);
+                alert('流程图渲染失败，请检查语法！');
+            }
+        });
+    </script>
+</body>
+</html>
